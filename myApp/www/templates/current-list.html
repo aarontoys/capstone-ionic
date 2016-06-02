@@ -1,0 +1,16 @@
+<ion-view>
+  <ion-nav-title>{{vm.lists[vm.test].name}}: {{vm.lists[vm.test].occurs | date:'medium'}}</ion-nav-title>
+  <ion-content>
+    {{vm.lists[vm.test].name}}
+    <ion-list>
+<!--     <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle> -->
+      <ion-item ng-repeat="item in vm.lists[vm.test].items">
+        <p>{{item.semantic_name}}</p>
+      </ion-item>
+    </ion-list>
+<!--     <p>hello world</p>
+    <p>Name: {{vm.userId}}</p> -->
+  </ion-content>
+</ion-view>
