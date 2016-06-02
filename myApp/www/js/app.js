@@ -74,7 +74,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'userAdminCtrl',
+        controllerAs: 'vm'
       }
     }
   })
