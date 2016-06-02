@@ -4,9 +4,9 @@
   .module('starter')
   .controller('addItemCtrl', addItemCtrl)
 
-  addItemCtrl.$inject = ['addItemDataService', 'uaService']
+  addItemCtrl.$inject = ['$scope', 'addItemDataService', 'uaService', '$cordovaBarcodeScanner']
 
-  function addItemCtrl (addItemDataService, uaService) {
+  function addItemCtrl ($scope, addItemDataService, uaService, $cordovaBarcodeScanner) {
     var vm = this;
 
     vm.show = false;
@@ -15,7 +15,34 @@
 
     vm.userId = 1
 
-    console.log('line16',vm.selectedList)
+    // $scope.$on('$ionicView.enter', function(e) {
+
+    //   console.log('line16',vm.selectedList)
+
+    // });
+    document.addEventListener("deviceready", function () {
+      console.log('deviceready');
+        $cordovaBarcodeScanner
+      .scan()
+      .then(function(barcodeData) {
+        console.log(barcodeData);
+        // Success! Barcode data is here
+      }, function(error) {
+        // An error occurred
+      });
+    }, false);
+
+    vm.scanNew = function () {
+      console.log('scanNew');
+      $cordovaBarcodeScanner
+      .scan()
+      .then(function(barcodeData) {
+        console.log(barcodeData);
+        // Success! Barcode data is here
+      }, function(error) {
+        // An error occurred
+      });
+    }
 
     vm.lookupBarcode = function () {
       console.log(vm.barcode);
