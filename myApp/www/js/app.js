@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ionic-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -82,4 +82,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
+})
+
+.config(function (ionicDatePickerProvider) {
+  var datePickerObj = {
+    inputDate: new Date(),
+    setLabel: 'Ok',
+    todayLabel: 'Today',
+    closeLabel: 'Close',
+    mondayFirst: false,
+    weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+    monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+    templateType: 'popup',
+    from: new Date(),
+    to: new Date(2018, 8, 1),
+    showTodayButton: true,
+    dateFormat: 'dd MMMM yyyy',
+    closeOnSelect: false,
+    disableWeekdays: [6]
+  };
+  ionicDatePickerProvider.configDatePicker(datePickerObj);
 });
