@@ -77,7 +77,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+
+  .state('tab.currentList', {
+    url: '/list/0',
+    views: {
+      'tab-currentList': {
+        templateUrl: 'templates/current-list.html',
+        controller: 'listsCtrl',
+        controllerAs: 'vm'
+      }
+    }
+  })
+
+ .state('tab.nextlist', {
+    url: '/list/1',
+    views: {
+      'tab-nextlist': {
+        templateUrl: 'templates/current-list.html',
+        controller: 'listsCtrl',
+        controllerAs: 'vm'
+      }
+    }
+  })
+
+ .state('tab.followinglist', {
+    url: '/list/2',
+    views: {
+      'tab-followinglist': {
+        templateUrl: 'templates/current-list.html',
+        controller: 'listsCtrl',
+        controllerAs: 'vm'
+      }
+    }
+  })
+
+ .state('tab.holdinglist', {
+    url: '/list/3',
+    views: {
+      'tab-holdinglist': {
+        templateUrl: 'templates/current-list.html',
+        controller: 'listsCtrl',
+        controllerAs: 'vm'
+      }
+    }
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
