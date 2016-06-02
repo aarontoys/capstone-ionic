@@ -124,6 +124,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
     }
   })
 
+ .state('tab.addItem', {
+  url: '/add-item',
+  views: {
+    'tab-addItem': {
+      templateUrl: 'templates/add-item.html',
+      controller: 'addItemCtrl',
+      controllerAs: 'vm'
+    }
+  }
+ })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
