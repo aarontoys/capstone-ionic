@@ -4,14 +4,31 @@
   .module('starter')
   .controller('userAdminCtrl', userAdminCtrl)
 
-  userAdminCtrl.$inject = ['uaService', 'ionicDatePicker'];
+  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker'];
 
 
-  function userAdminCtrl (uaService, ionicDatePicker) {
+  function userAdminCtrl ($scope, uaService, ionicDatePicker) {
 
-    console.log('userAdminCtrl');
-    var vm = this,
-        dayKeys = { 
+    var vm = this;
+    var day = 60*60*24*1000
+    
+
+    $scope.$on('$ionicView.enter', function(e) {
+      vm.date = new Date();
+    });
+
+    vm.datePlus = function () {
+      vm.date = new Date(vm.date.getTime() + day );
+
+    }
+
+    vm.dateMinus = function () {
+
+      vm.date = new Date(vm.date.getTime() - day);
+    }
+
+
+    var dayKeys = { 
           mon: 2, 
           tue: 3,
           wed: 4,
@@ -23,12 +40,13 @@
 
 //comment
 
+
+
     getSingleUser(3);
 
     function getSingleUser (id) {
       uaService.getSingleUser(id)
       .then(function (result) {
-        console.log('result: ', result)
         vm.fname = result.data.user[0].fname
         vm.lname = result.data.user[0].lname
         vm.email = result.data.user[0].email
@@ -40,26 +58,20 @@
     }
 
 
-    console.log('line12',vm);
   
     function getUser () {
 
     }
 
     vm.submit = function () {
-      // console.log(vm);
-      // console.log('t/f:', !!vm.shopDays);
-      // console.log(buildSchedule(vm.shopDays));
       vm.id = 3;
       vm.schedule = buildSchedule(vm.shopDays);
       vm.schedule_type = 0;
-      console.log(vm);
       uaService.updateUser(vm)
     }
 
 
     function buildSchedule (daysObj) {
-      // console.log(Object.values(daysObj));
       // if(daysObj) {
       //   return Object.keys(daysObj).map(function(el) {
       //     if (daysObj[el]) {
@@ -87,6 +99,8 @@
     vm.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
+
+
 
 
     

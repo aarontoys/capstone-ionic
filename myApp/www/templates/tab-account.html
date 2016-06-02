@@ -46,17 +46,37 @@
       <div>
       </div>
 
-      <div class="row">
-        <div class="col col-33 col-offset-67">
-          <button class="button button-small button-assertive" ng-click="vm.openDatePicker()">
-            Start Date
-          </button>
+      <div class="item item-input">
+        <div class="col">
+          <p>Every</p>
+        </div>
+        <div class="col">
+          <!-- <label class="item item-input"> -->
+            
+          <input type="number"></input>
+          <!-- </label> -->
+        </div>
+        <div class="col">
+          <p>days</p>
         </div>
       </div>
 
 
-    </div>
 
+    <!-- </div> -->
+    <p>Starting on</p>
+    <div class="item item-input">
+    <button class="button button-small" ng-click="vm.dateMinus()">
+      -
+    </button>
+        <input type="text" ng-model="vm.date" ng-click="vm.openDatePicker()">
+        <div class="padding-right">
+    <button class="button button-small" ng-click="vm.datePlus()">
+      +
+    </button>
+      </div>
+
+    </div>  
     </ion-list>
 
   </ion-content>
