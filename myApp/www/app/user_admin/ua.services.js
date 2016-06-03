@@ -9,7 +9,7 @@
   function uaService ($http) {
     return {
       getSingleUser: function (id) {
-        return $http.get('http://localhost:5000/users/'+id)
+        return $http.get('https://atoys-psl.herokuapp.com/users/'+id)
         .then(function (res) {
           return res;
         })
@@ -18,7 +18,7 @@
         });
       },
       updateUser: function (userDetails) {
-        return $http.post('http://localhost:5000/users/edit/'+userDetails.id, {
+        return $http.post('https://atoys-psl.herokuapp.com/users/edit/'+userDetails.id, {
           fname: userDetails.fname,
           lname: userDetails.lname,
           email: userDetails.email,
