@@ -11,11 +11,40 @@
 
     var vm = this;
     var day = 60*60*24*1000
-    
 
+    vm.freqOpts = {
+      selected: null,
+      test: 'day',
+      options: [
+        {
+          name: 'day',
+          range: new Array(31),
+          incrementVal: 1
+        },
+        {
+          name: 'week',
+          range: new Array(52),
+          incrementVal: 7
+        },
+        {
+          name: 'month',
+          range: new Array(12),
+          incrementVal: 30
+        }
+      ]
+    };
+    
     $scope.$on('$ionicView.enter', function(e) {
-      vm.date = new Date();
+    // console.log('line15',vm.shopDays);
+
     });
+      vm.date = new Date();
+
+    vm.consoleLog = function () {
+    console.log('line22',vm.freqOpts.options[0].name);
+    console.log('line22',vm.freqOpts.options[0].range);
+    console.log('line22',vm.freqOpts.options[0].range.length);
+    }
 
     vm.datePlus = function () {
       vm.date = new Date(vm.date.getTime() + day );

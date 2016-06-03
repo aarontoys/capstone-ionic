@@ -1,1 +1,14 @@
 /* Empty. Add your own CSS if you like */
+.item-border-bottom {
+  border-top-width: 0px; 
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+.no-padding {
+  padding: 0px !important;
+}
+
+.float-right {
+  float: right;
+}
