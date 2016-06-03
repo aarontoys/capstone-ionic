@@ -12,6 +12,9 @@
     var vm = this;
     var day = 60*60*24*1000
 
+    // var parser = datetime('EEE, MMM d, yyyy');
+    // parser.set
+
     vm.freqOpts = {
       selected: null,
       test: 'day',
@@ -38,7 +41,9 @@
     // console.log('line15',vm.shopDays);
 
     });
-      vm.date = new Date();
+      vm.xDays = {};
+      vm.xDays.startDate = new Date()
+      // vm.test = vm.date
 
     vm.consoleLog = function () {
     console.log('line22',vm.freqOpts.options[0].name);
@@ -47,13 +52,13 @@
     }
 
     vm.datePlus = function () {
-      vm.date = new Date(vm.date.getTime() + day );
+      vm.xDays.startDate = new Date(vm.xDays.startDate.getTime() + day );
 
     }
 
     vm.dateMinus = function () {
 
-      vm.date = new Date(vm.date.getTime() - day);
+      vm.xDays.startDate = new Date(vm.xDays.startDate.getTime() - day);
     }
 
 
@@ -93,14 +98,30 @@
     }
 
     vm.submit = function () {
+      console.log(vm);
       vm.id = 3;
-      vm.schedule = buildSchedule(vm.shopDays);
-      vm.schedule_type = 0;
-      uaService.updateUser(vm)
+      if (vm.shopFreq === 'xDays') {
+        vm.schedule = buildxDaysSchedule(vm.xDays);
+        vm.schedule_type = 1;
+      } else {
+        vm.schedule = buildDOWSchedule(vm.shopDays);
+      }
+      uaService.updateUser(vm.id, vm.fname, vm.lname, vm.email, vm.schedule_type, vm.schedule)
+
+      // vm.schedule = buildSchedule(vm.shopDays);
+      // vm.schedule_type = 0;
+      // uaService.updateUser(vm)
+    }
+
+    function buildxDaysSchedule (obj) {
+      var arr = [];
+      arr.push(obj.startDate);
+      arr.push(obj.occur * obj.mult);
+      return arr;
     }
 
 
-    function buildSchedule (daysObj) {
+    function buildDOWSchedule (daysObj) {
       // if(daysObj) {
       //   return Object.keys(daysObj).map(function(el) {
       //     if (daysObj[el]) {

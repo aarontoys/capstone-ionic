@@ -17,13 +17,13 @@
           return err;
         });
       },
-      updateUser: function (userDetails) {
-        return $http.post('https://atoys-psl.herokuapp.com/users/edit/'+userDetails.id, {
-          fname: userDetails.fname,
-          lname: userDetails.lname,
-          email: userDetails.email,
-          schedule_type: userDetails.schedule_type,
-          schedule: userDetails.schedule
+      updateUser: function (id, fname, lname, email, schedule_type, schedule) {
+        return $http.post('https://atoys-psl.herokuapp.com/users/edit/'+id, {
+          fname: fname,
+          lname: lname,
+          email: email,
+          schedule_type: schedule_type,
+          schedule: schedule
         })
         .then(function (res) {
           return res;

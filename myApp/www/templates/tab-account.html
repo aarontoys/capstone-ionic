@@ -43,14 +43,14 @@
           </div>
           <div class="col">
             <div ng-repeat="option in vm.freqOpts.options | filter:{name:vm.freqOpts.test}">
-              <select>
-                <option ng-repeat="range in option.range track by $index">{{$index+1}}</option>
+              <select ng-model="vm.xDays.occur">
+                <option ng-repeat="range in option.range track by $index" value="{{$index+1}}">{{$index+1}}</option>
               </select>
             </div>
           </div>
           <div class="col">
-            <select ng-model="vm.freqOpts.test">
-              <option ng-repeat="option in vm.freqOpts.options">{{option.name}}</option>
+            <select ng-model="vm.xDays.mult">
+              <option ng-repeat="option in vm.freqOpts.options" value="{{option.incrementVal}}">{{option.name}}</option>
             </select>
           </div>
         </div>
@@ -64,7 +64,7 @@
             </button>
           </div>
           <div class="col-40">
-            <input type="text" ng-model="vm.date | date:'EEE, MMM d, yyyy'" ng-click="vm.openDatePicker()" class="text-center no-padding">
+            <input type="text" datetime="EEE, MMM d, yyyy" ng-model="vm.xDays.startDate" ng-click="vm.openDatePicker()" class="text-center no-padding">
           </div>
           <!-- <div class="padding-right"> -->
           <div class="col-20">
@@ -81,7 +81,7 @@
   
 
           <div class="padding">
-      <button class="button button-block button-balanced">
+      <button class="button button-block button-balanced" ng-click="vm.submit()">
         Update
       </button>
       <button class="button button-block button-positive">
