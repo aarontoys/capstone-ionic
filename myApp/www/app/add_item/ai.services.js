@@ -10,7 +10,7 @@
     return {
       lookupBarcode: function (barcode) {
         console.log(barcode);
-        return $http.get('/addItem/'+barcode, {
+        return $http.get('http://localhost:5000/addItem/'+barcode, {
           barcode: barcode
         })
         .then(function(res) {
@@ -19,7 +19,7 @@
         })
       },
       addItem: function (userId,semName,selList,freq) {
-        return $http.post('/addItem',{
+        return $http.post('http://localhost:5000/addItem',{
           user_id: userId,
           semName: semName,
           schedule_type: 1,
