@@ -14,6 +14,7 @@
     vm.barcode = '049000000443';
 
     vm.userId = 1
+    console.log('vm.barcode', vm.barcode);
 
     // $scope.$on('$ionicView.enter', function(e) {
 
@@ -26,6 +27,7 @@
       .scan()
       .then(function(barcodeData) {
         console.log(barcodeData);
+        lookupBarcode(barcodeData.text);
         // Success! Barcode data is here
       }, function(error) {
         // An error occurred
@@ -38,6 +40,8 @@
       .scan()
       .then(function(barcodeData) {
         console.log(barcodeData);
+        lookupBarcode(barcodeData.text);
+
         // Success! Barcode data is here
       }, function(error) {
         // An error occurred
@@ -45,8 +49,14 @@
     }
 
     vm.lookupBarcode = function () {
-      console.log(vm.barcode);
-      addItemDataService.lookupBarcode(vm.barcode)
+      console.log('vm.lookupBarcode');
+      lookupBarcode(vm.barcode);
+      getLists();
+    }
+
+    function lookupBarcode (barcode) {
+      console.log(barcode);
+      addItemDataService.lookupBarcode(barcode)
       .then(function(newItem) {
         console.log(newItem);
         vm.title = newItem.data.product.title
@@ -54,6 +64,9 @@
         vm.brand = newItem.data.product.brandName
         vm.show = true;
       })
+    }
+
+    function getLists () {
       uaService.getSingleUser(vm.userId)
       .then(function(user) {
         console.log(user)
