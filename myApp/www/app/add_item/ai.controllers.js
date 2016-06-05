@@ -16,42 +16,30 @@
     vm.userId = 1
     console.log('vm.barcode', vm.barcode);
 
-    // $scope.$on('$ionicView.enter', function(e) {
-
-    //   console.log('line16',vm.selectedList)
-
-    // });
-    document.addEventListener("deviceready", function () {
-      console.log('deviceready');
-        $cordovaBarcodeScanner
-      .scan()
-      .then(function(barcodeData) {
-        console.log(barcodeData);
-        lookupBarcode(barcodeData.text);
-        // Success! Barcode data is here
-      }, function(error) {
-        // An error occurred
-      });
-    }, false);
+    $scope.$on('$ionicView.enter', function(e) {
+      loadBarcodeScanner();
+    });
 
     vm.scanNew = function () {
-      console.log('scanNew');
+      loadBarcodeScanner();
+    }
+
+    function loadBarcodeScanner () {
       $cordovaBarcodeScanner
       .scan()
       .then(function(barcodeData) {
         console.log(barcodeData);
         lookupBarcode(barcodeData.text);
-
-        // Success! Barcode data is here
+           getLists();
       }, function(error) {
-        // An error occurred
+        return error;
       });
     }
 
     vm.lookupBarcode = function () {
       console.log('vm.lookupBarcode');
       lookupBarcode(vm.barcode);
-      getLists();
+   
     }
 
     function lookupBarcode (barcode) {
@@ -84,7 +72,7 @@
     }
   }
 
-  // vm.addItem.freq.
+
 
 
 })();
