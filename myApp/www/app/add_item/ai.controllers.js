@@ -4,12 +4,11 @@
   .module('starter')
   .controller('addItemCtrl', addItemCtrl)
 
-  addItemCtrl.$inject = ['$scope', 'addItemDataService', 'uaService', '$cordovaBarcodeScanner']
+  addItemCtrl.$inject = ['$scope', '$timeout', 'addItemDataService', 'uaService', '$cordovaBarcodeScanner']
 
-  function addItemCtrl ($scope, addItemDataService, uaService, $cordovaBarcodeScanner) {
+  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner) {
     var vm = this;
 
-    vm.show = false;
 
     vm.barcode = '049000000443';
 
@@ -19,7 +18,10 @@
     getLists();
 
     $scope.$on('$ionicView.enter', function(e) {
-      loadBarcodeScanner();
+      vm.show = false;
+      $timeout(function () {
+        loadBarcodeScanner();
+      }, 1000);
     });
 
     vm.scanNew = function () {

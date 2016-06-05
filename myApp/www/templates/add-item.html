@@ -1,47 +1,57 @@
 <ion-view>
   <ion-content>
-    <div class="list">
+    <div ng-show="!vm.show">
+      <div class="backdrop visible backdrop-loading active">
+        <div class="loading-container visible active">
+          <div class="loading">
+            <p>....loading</p>
+            <ion-spinner></ion-spinner>
+        </div>
+       </div>
+      </div>
+    </div>
+    <div class="list" ng-show="vm.show">
       <div class="item item-input">
         <input type="text" ng-model="vm.barcode">
           <button class="button button-small" ng-click="vm.lookupBarcode()">
             Submit
           </button>
       </div>
-    </div>
-    <button class="button button-block button-positive" ng-click="vm.scanNew()">
-      Add another product
-    </button>
-    <h3>{{vm.brand}}</h3>
-    <h4> {{vm.title}}</h4>
-    <img ng-src="{{vm.imageUrl}}" width="100%">
-    <div class="list">
-      <label class="item item-input">
-        <input type="text" placeholder="Give this item a simple name like: milk, eggs, cheese, etc.">
-      </label>
-      <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.current | date: 'EEE, MMM d, yyyy'}}
-      </ion-radio>
-      <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.next | date: 'EEE, MMM d, yyyy'}}
-      </ion-radio>
-      <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.following | date: 'EEE, MMM d, yyyy'}}
-      </ion-radio>
-      <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.hold | date: 'EEE, MMM d, yyyy'}}
-      </ion-radio>
-      <div class="item item-input">
-        <div class="col">
-          <p>Every</p>
-        </div>
-        <div class="col">
-          <!-- <label class="item item-input"> -->
-            
-          <input type="number">
-          <!-- </label> -->
-        </div>
-        <div class="col">
-          <p>days</p>
-        </div>
-      </div>
       <button class="button button-block button-positive" ng-click="vm.scanNew()">
-      Add product to my list
-    </button>
+        Add another product
+      </button>
+      <h3>{{vm.brand}}</h3>
+      <h4> {{vm.title}}</h4>
+      <img ng-src="{{vm.imageUrl}}" width="100%">
+<!--       <div class="list"> -->
+        <label class="item item-input">
+          <input type="text" placeholder="Give this item a simple name like: milk, eggs, cheese, etc.">
+        </label>
+        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.current | date: 'EEE, MMM d, yyyy'}}
+        </ion-radio>
+        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.next | date: 'EEE, MMM d, yyyy'}}
+        </ion-radio>
+        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.following | date: 'EEE, MMM d, yyyy'}}
+        </ion-radio>
+        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.hold | date: 'EEE, MMM d, yyyy'}}
+        </ion-radio>
+        <div class="item item-input">
+          <div class="col">
+            <p>Every</p>
+          </div>
+          <div class="col">
+            <!-- <label class="item item-input"> -->
+              
+            <input type="number">
+            <!-- </label> -->
+          </div>
+          <div class="col">
+            <p>days</p>
+          </div>
+        </div>
+        <button class="button button-block button-positive" ng-click="vm.scanNew()">
+        Add product to my list
+      </button>
+    </div>
   </ion-content>
 </ion-view>
