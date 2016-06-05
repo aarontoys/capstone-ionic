@@ -16,6 +16,8 @@
     vm.userId = 1
     console.log('vm.barcode', vm.barcode);
 
+    getLists();
+
     $scope.$on('$ionicView.enter', function(e) {
       loadBarcodeScanner();
     });
@@ -30,7 +32,6 @@
       .then(function(barcodeData) {
         console.log(barcodeData);
         lookupBarcode(barcodeData.text);
-           getLists();
       }, function(error) {
         return error;
       });
@@ -55,6 +56,7 @@
     }
 
     function getLists () {
+      console.log('line59');
       uaService.getSingleUser(vm.userId)
       .then(function(user) {
         console.log(user)
