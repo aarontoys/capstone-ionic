@@ -4,10 +4,10 @@
   .module('starter')
   .controller('userAdminCtrl', userAdminCtrl)
 
-  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker'];
+  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService'];
 
 
-  function userAdminCtrl ($scope, uaService, ionicDatePicker) {
+  function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService) {
 
     var vm = this;
     var day = 60*60*24*1000
@@ -15,27 +15,7 @@
     // var parser = datetime('EEE, MMM d, yyyy');
     // parser.set
 
-    vm.freqOpts = {
-      selected: null,
-      test: 'day',
-      options: [
-        {
-          name: 'day',
-          range: new Array(31),
-          incrementVal: 1
-        },
-        {
-          name: 'week',
-          range: new Array(52),
-          incrementVal: 7
-        },
-        {
-          name: 'month',
-          range: new Array(12),
-          incrementVal: 30
-        }
-      ]
-    };
+    vm.freqOpts = xDaysService.freqOpts();
     
     $scope.$on('$ionicView.enter', function(e) {
     // console.log('line15',vm.shopDays);
@@ -101,10 +81,11 @@
       console.log(vm);
       vm.id = 3;
       if (vm.shopFreq === 'xDays') {
-        vm.schedule = buildxDaysSchedule(vm.xDays);
+        vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
         vm.schedule_type = 1;
       } else {
         vm.schedule = buildDOWSchedule(vm.shopDays);
+        vm.schedule_type = 0;
       }
       uaService.updateUser(vm.id, vm.fname, vm.lname, vm.email, vm.schedule_type, vm.schedule)
 
@@ -113,12 +94,6 @@
       // uaService.updateUser(vm)
     }
 
-    function buildxDaysSchedule (obj) {
-      var arr = [];
-      arr.push(obj.startDate);
-      arr.push(obj.occur * obj.mult);
-      return arr;
-    }
 
 
     function buildDOWSchedule (daysObj) {

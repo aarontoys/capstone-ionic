@@ -4,16 +4,17 @@
   .module('starter')
   .controller('addItemCtrl', addItemCtrl)
 
-  addItemCtrl.$inject = ['$scope', '$timeout', 'addItemDataService', 'uaService', '$cordovaBarcodeScanner']
+  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService']
 
-  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner) {
+  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService) {
     var vm = this;
 
 
     vm.barcode = '049000000443';
 
     vm.userId = 1
-    console.log('vm.barcode', vm.barcode);
+
+    vm.freqOpts = xDaysService.freqOpts();
 
     getLists();
 
@@ -32,7 +33,6 @@
       $cordovaBarcodeScanner
       .scan()
       .then(function(barcodeData) {
-        console.log(barcodeData);
         lookupBarcode(barcodeData.text);
       }, function(error) {
         return error;
@@ -70,7 +70,8 @@
     }
 
     vm.addItem = function () {
-      console.log(vm);
+      vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
+      vm.schedule_type = 1;
 
       addItemDataService.addItem(vm.userId,vm.semName,vm.selList,vm.freq)
     }
