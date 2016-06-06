@@ -4,9 +4,9 @@
   .module('starter')
   .controller('addItemCtrl', addItemCtrl)
 
-  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService']
+  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService', '$cordovaToast']
 
-  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService) {
+  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService, $cordovaToast) {
     var vm = this;
 
 
@@ -72,6 +72,24 @@
       vm.schedule_type = 1;
 
       addItemDataService.addItem(vm.userId,vm.semName,vm.schedule_type,vm.schedule)
+      .then(function(result){
+        console.log('line92',result);
+        // ionicToast.hide();
+        $cordovaToast.show(vm.semName + ' added successfully!','short','center')
+          .then(function(success){
+            console.log(success);
+          }, function(error) {
+            console.log(error)
+          });
+      })
+      .catch(function(error) {
+        $cordovaToast.show('Uh oh! Something went wrong!','long','center')
+          .then(function(success){
+            console.log(success);
+          }, function(error) {
+            console.log(error)
+          });
+      });
     }
   }
 
