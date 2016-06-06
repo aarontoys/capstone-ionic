@@ -40,6 +40,22 @@
     vm.doRefresh = function () {
       getLists(vm.userId);
     }
+
+    function consolidate (listArr) {
+      return listArr.map(function(eachList) {
+        var result = eachList.items.reduce(function(prev,curr,index) {
+          if (prev.length && prev[prev.length-1].id === curr.id) {
+            prev[prev.length-1].count++;
+          } else {
+            curr.count = 1;
+            prev.push(curr)
+          }
+          return prev;
+        }, [])
+        eachList.items = result
+        return eachList;
+      });
+    }
   }
 
 })();
