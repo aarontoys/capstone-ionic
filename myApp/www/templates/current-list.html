@@ -10,9 +10,7 @@
 <!--     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle> -->
-      <ion-item ng-repeat="item in vm.lists[vm.test].items">
-        <p>{{item.semantic_name}}</p>
-      </ion-item>
+        <ion-checkbox ng-repeat="item in vm.lists[vm.test].items">{{item.semantic_name}}</ion-checkbox>
     </ion-list>
 <!--     <p>hello world</p>
     <p>Name: {{vm.userId}}</p> -->
