@@ -40,28 +40,26 @@
     }
 
     vm.lookupBarcode = function () {
-      console.log('vm.lookupBarcode');
       lookupBarcode(vm.barcode);
    
     }
 
     function lookupBarcode (barcode) {
-      console.log(barcode);
       addItemDataService.lookupBarcode(barcode)
       .then(function(newItem) {
-        console.log(newItem);
-        vm.title = newItem.data.product.title
-        vm.imageUrl = newItem.data.product.imageUrl
-        vm.brand = newItem.data.product.brandName
-        vm.show = true;
+        if(newItem.data.product.length) {
+          vm.notFound = false;
+          vm.product = newItem.data.product[0];
+          vm.show = true;
+        } else {
+          vm.notFound = 'Sorry, we could not find that item. Please try a different item.'
+        }
       })
     }
 
     function getLists () {
-      console.log('line59');
       uaService.getSingleUser(vm.userId)
       .then(function(user) {
-        console.log(user)
         vm.current = user.data.user[0].occurrences[0]
         vm.next = user.data.user[0].occurrences[1]
         vm.following = user.data.user[0].occurrences[2]
