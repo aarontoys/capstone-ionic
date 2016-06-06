@@ -30,6 +30,7 @@
       .then(function (lists) {
         vm.lists = lists.data.lists;
         vm.items = lists.data.items;
+        consolidate(vm.lists);
         $scope.$broadcast('scroll.refreshComplete');
       })
       .catch(function (err) {
