@@ -1,5 +1,11 @@
 <ion-view>
   <ion-content>
+<!--       <div class="item item-input">
+        <input type="text" ng-model="vm.barcode">
+          <button class="button button-small" ng-click="vm.lookupBarcode()">
+            Submit
+          </button>
+      </div> -->
     <div ng-show="!vm.show">
       <div class="backdrop visible backdrop-loading active">
         <div class="loading-container visible active">
@@ -10,48 +16,78 @@
        </div>
       </div>
     </div>
-    <div class="list" ng-show="vm.show">
-      <div class="item item-input">
-        <input type="text" ng-model="vm.barcode">
-          <button class="button button-small" ng-click="vm.lookupBarcode()">
-            Submit
-          </button>
-      </div>
+    <div class="card" ng-show="vm.notFound">
+      <h4 class="padding">{{vm.notFound}}</h4>
       <button class="button button-block button-positive" ng-click="vm.scanNew()">
         Add another product
       </button>
-      <h3>{{vm.brand}}</h3>
-      <h4> {{vm.title}}</h4>
-      <img ng-src="{{vm.imageUrl}}" width="100%">
+    </div>
+    <div class="list" ng-show="vm.show">
+<!--       <button class="button button-block button-positive" ng-click="vm.scanNew()">
+        Add another product
+      </button> -->
+<!--       <ion-slide-box>
+        <ion-slide ng-repeat="product in vm.products"> -->
+          <div class="card">  
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <img ng-src="{{vm.product.imageUrl}}" width="100%">
+                </div>
+                <div class="col">
+                  <h3>{{vm.product.brandName}}</h3>
+                  <h4>{{vm.product.title}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+<!--        </ion-slide>
+      </ion-slide-box> -->
 <!--       <div class="list"> -->
+        <div class="item item-divider">
+          1. Add generic name for this item:
+        </div>
         <label class="item item-input">
-          <input type="text" placeholder="Give this item a simple name like: milk, eggs, cheese, etc.">
+          <input type="text" placeholder="Example: milk, eggs, cheese, etc." ng-model="vm.semName">
         </label>
-        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.current | date: 'EEE, MMM d, yyyy'}}
+         <div class="item item-divider">
+          2. Add {{vm.semName || 'this item'}} to one of the following list
+        </div>
+        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.current">Current List: {{vm.current}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
         </ion-radio>
-        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.next | date: 'EEE, MMM d, yyyy'}}
+        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.next">Next List: {{vm.next}}<!--  | date: 'EEE, MMM d, yyyy'}} -->
         </ion-radio>
-        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.following | date: 'EEE, MMM d, yyyy'}}
+        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.following">Following List: {{vm.following}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
         </ion-radio>
-        <ion-radio ng-model="vm.addToList" ng-value="vm.current">{{vm.hold | date: 'EEE, MMM d, yyyy'}}
+        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.hold">Hold List: {{vm.hold}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
         </ion-radio>
+         <div class="item item-divider item-text-wrap">
+          3. Choose how often you think you need to repurchase {{vm.semName || 'this item'}}
+        </div>
         <div class="item item-input">
           <div class="col">
             <p>Every</p>
           </div>
           <div class="col">
-            <!-- <label class="item item-input"> -->
-              
-            <input type="number">
-            <!-- </label> -->
+            <div ng-repeat="option in vm.freqOpts.options | filter:{name:vm.freqOpts.test}">
+              <select ng-model="vm.xDays.occur">
+                <option ng-repeat="range in option.range track by $index" value="{{$index+1}}">{{$index+1}}</option>
+              </select>
+            </div>
           </div>
           <div class="col">
-            <p>days</p>
+            <select ng-model="vm.xDays.mult">
+              <option ng-repeat="option in vm.freqOpts.options" value="{{option.incrementVal}}">{{option.name}}</option>
+            </select>
           </div>
         </div>
+        <button class="button button-block button-balanced" ng-click="vm.addItem()">
+          Add product to my list
+        </button>
         <button class="button button-block button-positive" ng-click="vm.scanNew()">
-        Add product to my list
-      </button>
+          Scan new
+        </button>
+
     </div>
   </ion-content>
 </ion-view>
