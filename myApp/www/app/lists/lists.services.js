@@ -10,6 +10,7 @@
     return {
       getLists: function (id) {
         return $http.get('https://atoys-psl.herokuapp.com/lists/'+id)
+        // return $http.get('http://localhost:5000/lists/'+id)
         .then(function(res) {
           return res;
         })
