@@ -4,10 +4,10 @@
   .module('starter')
   .controller('userAdminCtrl', userAdminCtrl)
 
-  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService'];
+  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService', '$cordovaToast'];
 
 
-  function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService) {
+  function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService, $cordovaToast) {
 
     var vm = this;
     var day = 60*60*24*1000
@@ -88,7 +88,23 @@
         vm.schedule_type = 0;
       }
       uaService.updateUser(vm.id, vm.fname, vm.lname, vm.email, vm.schedule_type, vm.schedule)
-
+      .then(function(result){
+        console.log('line92',result);
+        $cordovaToast.show('Update Successful!','short','center')
+          .then(function(success){
+            console.log(success);
+          }, function(error) {
+            console.log(error)
+          });
+      })
+      .catch(function(error) {
+        $cordovaToast.show('Uh oh! Something went wrong!','long','center')
+          .then(function(success){
+            console.log(success);
+          }, function(error) {
+            console.log(error)
+          });
+      });
       // vm.schedule = buildSchedule(vm.shopDays);
       // vm.schedule_type = 0;
       // uaService.updateUser(vm)
