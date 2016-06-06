@@ -30,11 +30,16 @@
       .then(function (lists) {
         vm.lists = lists.data.lists;
         vm.items = lists.data.items;
+        $scope.$broadcast('scroll.refreshComplete');
       })
       .catch(function (err) {
         return next(err);
       });
     };
+
+    vm.doRefresh = function () {
+      getLists(vm.userId);
+    }
   }
 
 })();
