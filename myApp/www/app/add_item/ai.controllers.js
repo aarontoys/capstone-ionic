@@ -71,7 +71,7 @@
       vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
       vm.schedule_type = 1;
 
-      addItemDataService.addItem(vm.userId,vm.semName,vm.selList,vm.freq)
+      addItemDataService.addItem(vm.userId,vm.semName,vm.schedule_type,vm.schedule)
     }
   }
 

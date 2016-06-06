@@ -17,13 +17,16 @@
           console.log(res);
           return res;
         })
+        .catch(function(err) {
+          return err;
+        })
       },
-      addItem: function (userId,semName,selList,freq) {
+      addItem: function (userId,semName,type,schedule) {
         return $http.post('https://atoys-psl.herokuapp.com/addItem',{
           user_id: userId,
           semName: semName,
-          schedule_type: 1,
-          schedule: [selList,freq]
+          schedule_type: type,
+          schedule: schedule
         })
 
       }
