@@ -17,6 +17,12 @@
         .catch(function (err) {
           return err
         });
+      },
+      updateSchedule: function(id, schedule) {
+        return $http.post('https://atoys-psl.herokuapp.com/addItem/update/'+id, {
+        // return $http.post('http://localhost:5000/addItem/update/'+id, {
+          schedule: schedule
+        })
       }
     }
   }

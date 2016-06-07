@@ -17,6 +17,8 @@
     
     vm.userId =1;
 
+    vm.lists = [];
+
     getLists(vm.userId);
 
     vm.getLists = function (id) {
@@ -40,6 +42,7 @@
 
     vm.doRefresh = function () {
       getLists(vm.userId);
+      console.log(vm.lists);
     }
 
     function consolidate (listArr) {
@@ -56,6 +59,22 @@
         eachList.items = result
         return eachList;
       });
+    }
+
+    vm.checkOff = function (sched) {
+      console.log(sched)
+      console.log(vm.lists[1].occurs);
+      sched.schedule[0] = vm.lists[1].occurs;
+      console.log(sched.schedule);
+      listsDataService
+        .updateSchedule(sched.id, sched.schedule)
+        .then(vm.doRefresh);
+      // var lists = getLists(vm.userId);
+      // console.log(lists)
+    }
+
+    vm.swipeRight = function () {
+      console.log('swipe right worked');
     }
   }
 
