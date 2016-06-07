@@ -14,17 +14,17 @@
           test: 'day',
           options: [
             {
-              name: 'day',
+              name: 'days',
               range: new Array(31),
               incrementVal: 1
             },
             {
-              name: 'week',
+              name: 'weeks',
               range: new Array(52),
               incrementVal: 7
             },
             {
-              name: 'month',
+              name: 'months',
               range: new Array(12),
               incrementVal: 30
             }

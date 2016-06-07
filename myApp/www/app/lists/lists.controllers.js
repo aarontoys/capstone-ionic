@@ -10,6 +10,7 @@
     var vm = this;
     
     $scope.$on('$ionicView.enter', function(e) {
+      getLists(vm.userId);
       var test = $state.current.url
       test = test[test.length - 1]
       vm.test = test;
@@ -61,10 +62,16 @@
       });
     }
 
-    vm.checkOff = function (sched) {
+    vm.checkOff = function (sched, listId) {
+      sched.status = 0;
       console.log(sched)
       console.log(vm.lists[1].occurs);
-      sched.schedule[0] = vm.lists[1].occurs;
+      if (parseInt(listId) < 3) {
+        
+        sched.schedule[0] = vm.lists[parseInt(listId)+1].occurs;
+      } else { 
+        sched.schedule[0] = new Date(new Date(vm.lists[parseInt(listId)].occurs).getTime() + 864000000);
+      }
       console.log(sched.schedule);
       listsDataService
         .updateSchedule(sched.id, sched.schedule)
@@ -73,8 +80,48 @@
       // console.log(lists)
     }
 
-    vm.swipeRight = function () {
-      console.log('swipe right worked');
+    vm.swipe = function (item, listId, dir) { 
+
+      var dateDiff;
+      var newStartTime;
+      var newInterval;
+      if (dir === 'right') {
+        console.log('swipe right worked');
+        var newArr = item.occurrences.slice().reverse()
+        for (var i = 0; i < newArr.length; i++) {
+          if(new Date(newArr[i]) < new Date(vm.lists[parseInt(listId)+1].occurs)) {
+            dateDiff = new Date(vm.lists[parseInt(listId)+1].occurs) - new Date(newArr[i]);
+            break;
+          }
+        }
+        newStartTime = new Date(new Date(item.occurrences[0]).getTime() + dateDiff);
+        newInterval = item.schedule[1]
+        console.log(item);
+        console.log(newStartTime);
+        console.log(newInterval);
+        var newSched = [newStartTime,newInterval]
+        listsDataService
+          .updateSchedule(item.id, newSched)
+          .then(vm.doRefresh)
+      }
+      else {
+        console.log('swipe left worked');
+        // for (var i =0; i < item.occurrences.length; i++) {
+        //   if(new Date(item.occurrences[i]) >= new Date(vm.lists[listId].occurs)) {
+        //     dateDiff = new Date(item.occurrences[i]) - new Date(vm.lists[listId].occurs)
+        //     break;
+        //   }
+        // }
+        // console.log(dateDiff/1000/60/60/24)
+        // newStartTime = new Date()
+        // newStartTime = item.schedule[0];
+        // schedInterval = (new Date(vm.lists[parseInt(listId)].occurs) - new Date(vm.lists[parseInt(listId)-1].occurs))/1000/60/60/24;
+        // newInterval = schedInterval - 1;
+        // console.log(item);
+        // console.log(schedInterval);
+        // console.log(newStartTime);
+        // console.log(newInterval);
+      }
     }
   }
 

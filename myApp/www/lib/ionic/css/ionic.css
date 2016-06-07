@@ -1329,7 +1329,9 @@
   content: ""; }
 
 .ion-checkmark:before {
-  content: ""; }
+  /*content: ""; */
+  /*background-color: #387ef5;*/
+  }
 
 .ion-checkmark-circled:before {
   content: ""; }
@@ -5994,7 +5996,7 @@ button.item.item-complex {
 .item-radio .item-content {
   position: relative;
   z-index: 2;
-  padding: 16px 49px 16px 16px;
+  padding: 8px 49px 16px 16px;
   border: none;
   background-color: #fff; }
 
@@ -8293,7 +8295,8 @@ input:checked + .checkbox-icon:after {
   left: -9999px; }
   .item-radio input:checked + .radio-content .item-content {
     /* style the item content when its checked */
-    background: #f7f7f7; }
+    background-color: #387ef5;
+    color: #fff; }
   .item-radio input:checked + .radio-content .radio-icon {
     /* show the checkmark icon when its checked */
     visibility: visible; }

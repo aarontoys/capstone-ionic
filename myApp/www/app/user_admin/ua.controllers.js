@@ -12,6 +12,7 @@
     var vm = this;
     var day = 60*60*24*1000
 
+
     // var parser = datetime('EEE, MMM d, yyyy');
     // parser.set
 
@@ -23,6 +24,7 @@
     });
       vm.xDays = {};
       vm.xDays.startDate = new Date()
+      vm.xDays.occur = 3;
       // vm.test = vm.date
 
     vm.consoleLog = function () {
@@ -56,7 +58,7 @@
 
 
 
-    getSingleUser(3);
+    getSingleUser(1);
 
     function getSingleUser (id) {
       uaService.getSingleUser(id)
@@ -79,7 +81,7 @@
 
     vm.submit = function () {
       console.log(vm);
-      vm.id = 3;
+      vm.id = 1;
       if (vm.shopFreq === 'xDays') {
         vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
         vm.schedule_type = 1;

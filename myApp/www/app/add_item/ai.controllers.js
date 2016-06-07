@@ -8,8 +8,8 @@
 
   function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService, $cordovaToast) {
     var vm = this;
-
-
+    vm.xDays = {}
+    vm.xDays.occur = 3;
     vm.barcode = '049000000443';
 
     vm.userId = 1
@@ -70,7 +70,7 @@
     vm.addItem = function () {
       vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
       vm.schedule_type = 1;
-
+      console.log('line73',vm.schedule)
       addItemDataService.addItem(vm.userId,vm.semName,vm.schedule_type,vm.schedule)
       .then(function(result){
         console.log('line92',result);

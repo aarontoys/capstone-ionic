@@ -18,8 +18,8 @@
         Shopping Frequency:
       </div>
 
-      <ion-radio ng-model="vm.shopFreq" ng-value="'DOW'" ng-click="vm.consoleLog()" class="item-text-wrap"><p>I prefer to shop on certain days of the week</p></ion-radio>
-      <ion-radio ng-model="vm.shopFreq" ng-value="'xDays'" ng-click="vm.consoleLog()" ><p>I prefer to shop every X days</p></ion-radio>
+      <ion-radio ng-model="vm.shopFreq" ng-value="'DOW'" ng-click="vm.consoleLog()" class="item-text-wrap">I prefer to shop on certain days of the week</ion-radio>
+      <ion-radio ng-model="vm.shopFreq" ng-value="'xDays'" ng-click="vm.consoleLog()" >I prefer to shop every X days</ion-radio>
 
       <div class="row" ng-show="vm.shopFreq=='DOW'">
         <div class="col">
@@ -37,7 +37,7 @@
       </div>
 
       <div ng-show="vm.shopFreq=='xDays'">
-        <div class="item item-input">
+<!--         <div class="item item-input">
           <div class="col">
             <p>Every</p>
           </div>
@@ -52,6 +52,21 @@
             <select ng-model="vm.xDays.mult">
               <option ng-repeat="option in vm.freqOpts.options" value="{{option.incrementVal}}">{{option.name}}</option>
             </select>
+          </div>
+        </div> -->
+        <div class="item item-input">
+          <div class="col-15">
+            <p>Every</p>
+          </div>
+          <div class="col-15">
+            <label class="item item-input item-borderless">
+               <input type="number" ng-model="vm.xDays.occur" style="width: 50px; font-size: 20px;">
+            </label>
+          </div>
+          <div ng-repeat="option in vm.freqOpts.options" style="width: 85px">
+          <div class="col">
+            <ion-radio name="mult" value="{{option.incrementVal}}" ng-model="vm.xDays.mult">{{option.name}}</ion-radio>
+          </div>
           </div>
         </div>
 <!--           <div class="row"> -->

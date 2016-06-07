@@ -1,5 +1,5 @@
 <ion-view>
-  <ion-nav-title>{{vm.lists[vm.test].name}}: {{vm.lists[vm.test].occurs | date:'medium'}}</ion-nav-title>
+  <ion-nav-title>{{vm.lists[vm.test].name}}: {{vm.lists[vm.test].occurs | date: 'EEEE, MMMM d'}}</ion-nav-title> <!--  | date:'medium' -->
   <ion-content>
     <ion-refresher
       pulling-text="Pull to refresh..."
@@ -10,16 +10,16 @@
 <!--     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle> -->
-        <ion-checkbox ng-repeat="item in vm.lists[vm.test].items" ng-if="vm.test == '0'" ng-click="vm.checkOff(item)" on-swipe-right="vm.swipeRight()">{{item.semantic_name}} x{{item.count}}</ion-checkbox>
-       <ion-item ng-repeat="item in vm.lists[vm.test].items" ng-if="vm.test !== '0'">{{item.semantic_name}} x{{item.count}}</ion-item>
+        <ion-checkbox ng-repeat="item in vm.lists[vm.test].items"  ng-click="vm.checkOff(item, vm.test)" on-swipe-right="vm.swipe(item, vm.test, 'right')" ng-show="item.status">{{item.semantic_name}} x{{item.count}}</ion-checkbox> <!-- ng-if="vm.test == '0'" -->
+       <!-- <ion-item ng-repeat="item in vm.lists[vm.test].items" ng-if="vm.test !== '0'">{{item.semantic_name}} x{{item.count}}</ion-item> -->
 
-      <ion-list>
+<!--       <ion-list>
         <ion-item>
           I love kittens!
           <ion-option-button class="button-positive">Share</ion-option-button>
           <ion-option-button class="button-assertive">Edit</ion-option-button>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
 
 
     </ion-list>
