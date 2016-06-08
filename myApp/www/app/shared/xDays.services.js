@@ -35,10 +35,9 @@
       buildxDaysSchedule: function (obj) {
         var arr = [];
         arr.push(obj.startDate);
-        arr.push(obj.occur * obj.mult);
+        arr.push(obj.occur * parseInt(obj.mult));
         return arr;
       }
-      
     }
   }
 
