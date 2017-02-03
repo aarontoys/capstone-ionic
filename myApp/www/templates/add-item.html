@@ -1,12 +1,12 @@
 <ion-view>
   <ion-content>
-<!--       <div class="item item-input">
+      <div class="item item-input">
         <input type="text" ng-model="vm.barcode">
           <button class="button button-small" ng-click="vm.lookupBarcode()">
             Submit
           </button>
-      </div> -->
-    <div ng-show="!vm.show">
+      </div>
+<!--     <div ng-show="!vm.show">
       <div class="backdrop visible backdrop-loading active">
         <div class="loading-container visible active">
           <div class="loading">
@@ -15,7 +15,7 @@
         </div>
        </div>
       </div>
-    </div>
+    </div> -->
     <div class="card" ng-show="vm.notFound">
       <h4 class="padding">{{vm.notFound}}</h4>
       <button class="button button-block button-positive" ng-click="vm.scanNew()">
