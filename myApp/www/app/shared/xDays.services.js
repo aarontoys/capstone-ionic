@@ -29,7 +29,7 @@
               incrementVal: 30
             }
           ]
-        }
+        };
       },
 
       buildxDaysSchedule: function (obj) {
@@ -38,7 +38,7 @@
         arr.push(obj.occur * parseInt(obj.mult));
         return arr;
       }
-    }
+    };
   }
 
 
