@@ -16,6 +16,8 @@
       vm.test = test;
     });
     
+    vm.console = 'navigator: ' + navigator.userAgent;
+
     vm.userId =1;
 
     vm.lists = [];

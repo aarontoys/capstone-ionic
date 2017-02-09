@@ -2,21 +2,23 @@
 
   angular
   .module('starter')
-  .controller('addItemCtrl', addItemCtrl)
+  .controller('addItemCtrl', addItemCtrl);
 
-  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService', '$cordovaToast']
+  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService', '$cordovaToast'];
 
   function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService, $cordovaToast) {
     var vm = this;
-    vm.xDays = {}
+    vm.xDays = {};
     vm.xDays.occur = 3;
     vm.barcode = '049000000443';
 
-    vm.userId = 1
+    vm.userId = 1;
 
     vm.freqOpts = xDaysService.freqOpts();
 
     getLists();
+
+    console.log(navigator.userAgent);
 
     $scope.$on('$ionicView.enter', function(e) {
       vm.show = false;
@@ -27,7 +29,7 @@
 
     vm.scanNew = function () {
       loadBarcodeScanner();
-    }
+    };
 
     function loadBarcodeScanner () {
       $cordovaBarcodeScanner
@@ -42,7 +44,7 @@
     vm.lookupBarcode = function () {
       lookupBarcode(vm.barcode);
    
-    }
+    };
 
     function lookupBarcode (barcode) {
       addItemDataService.lookupBarcode(barcode)
@@ -52,25 +54,25 @@
           vm.product = newItem.data.product[0];
           vm.show = true;
         } else {
-          vm.notFound = 'Sorry, we could not find that item. Please try a different item.'
+          vm.notFound = 'Sorry, we could not find that item. Please try a different item.';
         }
-      })
+      });
     }
 
     function getLists () {
       uaService.getSingleUser(vm.userId)
       .then(function(user) {
-        vm.current = user.data.user[0].occurrences[0]
-        vm.next = user.data.user[0].occurrences[1]
-        vm.following = user.data.user[0].occurrences[2]
-        vm.hold = user.data.user[0].occurrences[3]
-      })
+        vm.current = user.data.user[0].occurrences[0];
+        vm.next = user.data.user[0].occurrences[1];
+        vm.following = user.data.user[0].occurrences[2];
+        vm.hold = user.data.user[0].occurrences[3];
+      });
     }
 
     vm.addItem = function () {
       vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
       vm.schedule_type = 1;
-      console.log('line73',vm.schedule)
+      console.log('line73',vm.schedule);
       addItemDataService.addItem(vm.userId,vm.semName,vm.schedule_type,vm.schedule)
       .then(function(result){
         console.log('line92',result);
@@ -79,7 +81,7 @@
           .then(function(success){
             console.log(success);
           }, function(error) {
-            console.log(error)
+            console.log(error);
           });
       })
       .catch(function(error) {
@@ -87,10 +89,10 @@
           .then(function(success){
             console.log(success);
           }, function(error) {
-            console.log(error)
+            console.log(error);
           });
       });
-    }
+    };
   }
 
 
