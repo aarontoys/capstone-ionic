@@ -12,12 +12,11 @@
     
     $scope.$on('$ionicView.enter', function(e) {
       getLists(vm.userId);
-      var test = $state.current.url;
-      test = test[test.length - 1];
-      vm.test = test;
+      var listId = $state.current.url;
+      listId = listId[listId.length - 1];
+      vm.listId = listId;
+      $ionicScrollDelegate.scrollTop();
     });
-    
-    vm.console = 'navigator: ' + navigator.userAgent;
 
     vm.userId =1;
 

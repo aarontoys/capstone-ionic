@@ -10,9 +10,10 @@
   function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService, $cordovaToast, $timeout) {
 
     var vm = this;
-    var day = 60*60*24*1000
+    var day = 60*60*24*1000;
 
-
+    vm.shopDays = {};
+    vm.required = true;
     // var parser = datetime('EEE, MMM d, yyyy');
     // parser.set
     vm.addSaveUserMessage = 'Update';
