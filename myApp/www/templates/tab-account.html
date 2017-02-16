@@ -1,93 +1,115 @@
 <ion-view view-title="Account">
   <ion-content>
     <div class="list">
-      <div class="item item-divider">
-        Personal Info:
-      </div>
-      <label class="item item-input">
-        <input type="text" ng-model="vm.fname" placeholder="First Name">
-      </label>
-      <label class="item item-input">
-        <input type="text" ng-model="vm.lname" placeholder="Last Name">
-      </label>
-      <label class="item item-input">
-        <input type="text" ng-model="vm.email" placeholder="Email Address">
-      </label>
-
-      <div class="item item-divider">
-        Shopping Frequency:
-      </div>
-
-      <ion-radio ng-model="vm.shopFreq" ng-value="'DOW'" ng-click="vm.consoleLog()" class="item-text-wrap">I prefer to shop on certain days of the week</ion-radio>
-      <ion-radio ng-model="vm.shopFreq" ng-value="'xDays'" ng-click="vm.consoleLog()" >I prefer to shop every X days</ion-radio>
-
-      <div class="row" ng-show="vm.shopFreq=='DOW'">
-        <div class="col">
-          <ion-checkbox ng-model="vm.shopDays.mon" class="item-borderless" ng-click="vm.consoleLog()">Monday</ion-checkbox>
-          <ion-checkbox ng-model="vm.shopDays.tue" class="item-borderless" ng-click="vm.consoleLog()">Tuesday</ion-checkbox>
-          <ion-checkbox ng-model="vm.shopDays.wed" class="item-borderless" ng-click="vm.consoleLog()">Wednesday</ion-checkbox>
-          <ion-checkbox ng-model="vm.shopDays.thu" class="item-borderless" ng-click="vm.consoleLog()">Thursday</ion-checkbox>
+      <form name="userForm" novalidate>
+        <div class="item item-divider">
+          Personal Info:
         </div>
-        <div class="col">
+        <label class="item item-input">
+          <input type="text" ng-model="vm.fname" placeholder="First Name" required>
+        </label>
+        <label class="item item-input">
+          <input type="text" ng-model="vm.lname" placeholder="Last Name" required>
+        </label>
+        <label class="item item-input">
+          <input type="text" ng-model="vm.email" placeholder="Email Address" required>
+        </label>
 
-          <ion-checkbox ng-model="vm.shopDays.fri" class="item-borderless" ng-click="vm.consoleLog()">Friday</ion-checkbox>
-          <ion-checkbox ng-model="vm.shopDays.sat" class="item-borderless" ng-click="vm.consoleLog()">Saturday</ion-checkbox>
-          <ion-checkbox ng-model="vm.shopDays.sun" class="item-borderless" ng-click="vm.consoleLog()">Sunday</ion-checkbox>
+        <div class="item item-divider">
+          Shopping Frequency:
         </div>
-      </div>
 
-      <div ng-show="vm.shopFreq=='xDays'">
-<!--         <div class="item item-input">
+        <ion-radio class="item-text-wrap" ng-model="vm.shopFreq" ng-value="'DOW'" ng-click="vm.required=true">I prefer to shop on certain days of the week</ion-radio>
+        
+        <ion-radio ng-model="vm.shopFreq" ng-value="'xDays'" ng-click="vm.required=false">I prefer to shop every X days</ion-radio>
+
+        <div class="row" ng-show="vm.shopFreq=='DOW'">
           <div class="col">
-            <p>Every</p>
+            <ion-checkbox ng-model="vm.shopDays.mon" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Monday</ion-checkbox>
+            <ion-checkbox ng-model="vm.shopDays.tue" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Tuesday</ion-checkbox>
+            <ion-checkbox ng-model="vm.shopDays.wed" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Wednesday</ion-checkbox>
+            <ion-checkbox ng-model="vm.shopDays.thu" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Thursday</ion-checkbox>
           </div>
           <div class="col">
-            <div ng-repeat="option in vm.freqOpts.options | filter:{name:vm.freqOpts.test}">
-              <select ng-model="vm.xDays.occur">
-                <option ng-repeat="range in option.range track by $index" value="{{$index+1}}">{{$index+1}}</option>
+
+            <ion-checkbox ng-model="vm.shopDays.fri" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Friday</ion-checkbox>
+            <ion-checkbox ng-model="vm.shopDays.sat" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Saturday</ion-checkbox>
+            <ion-checkbox ng-model="vm.shopDays.sun" class="item-borderless" ng-click="vm.checkboxRequired(vm.shopDays)" ng-required="vm.required">Sunday</ion-checkbox>
+          </div>
+        </div>
+
+        <div ng-show="vm.shopFreq=='xDays'">
+            <!--         <div class="item item-input">
+            <div class="col">
+              <p>Every</p>
+            </div>
+            <div class="col">
+              <div ng-repeat="option in vm.freqOpts.options | filter:{name:vm.freqOpts.test}">
+                <select ng-model="vm.xDays.occur">
+                  <option ng-repeat="range in option.range track by $index" value="{{$index+1}}">{{$index+1}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <select ng-model="vm.xDays.mult">
+                <option ng-repeat="option in vm.freqOpts.options" value="{{option.incrementVal}}">{{option.name}}</option>
               </select>
             </div>
+          </div> -->
+          <div class="item item-input">
+            <div class="col-15">
+              <p>Every</p>
+            </div>
+            <div class="col-15">
+              <label class="item item-input item-borderless">
+                 <input type="number" id="occur" ng-model="vm.xDays.occur" ng-required="vm.shopFreq=='xDays'" min="1">
+              </label>
+            </div>
+            <div ng-repeat="option in vm.freqOpts.options" style="width: 85px">
+              <div class="col">
+                <ion-radio name="mult" class="radio" value="{{option.incrementVal}}" ng-model="vm.xDays.mult" ng-required="vm.shopFreq=='xDays'">{{option.name}}</ion-radio>
+              </div>
+            </div>
           </div>
-          <div class="col">
-            <select ng-model="vm.xDays.mult">
-              <option ng-repeat="option in vm.freqOpts.options" value="{{option.incrementVal}}">{{option.name}}</option>
-            </select>
-          </div>
-        </div> -->
-        <div class="item item-input">
-          <div class="col-15">
-            <p>Every</p>
-          </div>
-          <div class="col-15">
-            <label class="item item-input item-borderless">
-               <input type="number" ng-model="vm.xDays.occur" style="width: 50px; font-size: 20px;">
-            </label>
-          </div>
-          <div ng-repeat="option in vm.freqOpts.options" style="width: 85px">
-          <div class="col">
-            <ion-radio name="mult" value="{{option.incrementVal}}" ng-model="vm.xDays.mult">{{option.name}}</ion-radio>
-          </div>
-          </div>
-        </div>
-<!--           <div class="row"> -->
-        <div class="item item-input">
-          <div class="col-20"><p>Starting on</p></div>
-        <!-- </div> -->
-        <!-- <div class="item item-input"> -->
-          <div class="col-20">
-            <button class="button button-small ion-minus-round float-right" ng-click="vm.dateMinus()">
-            </button>
-          </div>
-          <div class="col-40">
-            <input type="text" datetime="EEE, MMM d, yyyy" ng-model="vm.xDays.startDate" ng-click="vm.openDatePicker()" class="text-center no-padding">
-          </div>
-          <!-- <div class="padding-right"> -->
-          <div class="col-20">
-            <button class="button button-small ion-plus-round" ng-click="vm.datePlus()">
-            </button>
+            <!--           <div class="row"> -->
+          <div class="item item-input">
+            <div class="col-20"><p>Starting on</p></div>
+            <!-- </div> -->
+            <!-- <div class="item item-input"> -->
+            <div class="col-20">
+              <button class="button button-small ion-minus-round float-right" ng-click="vm.dateMinus()">
+              </button>
+            </div>
+            <div class="col-40">
+              <input type="text" datetime="EEE, MMM d, yyyy" ng-model="vm.xDays.startDate" ng-click="vm.openDatePicker()" class="text-center no-padding" ng-required="vm.shopFreq=='xDays'">
+            </div>
+            <!-- <div class="padding-right"> -->
+            <div class="col-20">
+              <button class="button button-small ion-plus-round" ng-click="vm.datePlus()">
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div class="padding">
+          <button class="button button-block button-balanced" ng-click="vm.submit()" ng-disabled="userForm.$invalid">
+            {{vm.addSaveUserMessage}}
+          </button>
+          <button class="button button-block button-positive">
+            Reset Password
+          </button>
+        </div> 
+      </form> 
+    
+<!--       <p>InValid: {{userForm.$invalid}}</p>
+      <p>Valid: {{!userForm.$invalid}}</p>
+      <p>Shop Freq: {{vm.shopFreq}}, {{vm.shopFreq=='xDays'}}</p>
+      <p>{{vm.xDays.startDate}}</p>
+      <p>{{vm.xDays.mult}}</p>
+      <p>{{vm.xDays.occur}}</p>
+      <p>{{userForm.input.$error.required}}
+      <p>vm.requried = {{vm.required}}</p> -->
+
     </div>
 
 
@@ -95,15 +117,8 @@
     <!-- </div> -->
   
 
-          <div class="padding">
-      <button class="button button-block button-balanced" ng-click="vm.submit()">
-        Update
-      </button>
-      <button class="button button-block button-positive">
-        Reset Password
-      </button>
-      </div>  
-    </ion-list>
+    <!-- </ion-list> -->
+    <!-- </div> -->
 
   </ion-content>
 </ion-view>

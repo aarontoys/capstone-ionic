@@ -31,11 +31,16 @@
       vm.xDays.occur = 3;
       // vm.test = vm.date
 
-    vm.consoleLog = function () {
-    console.log('line22',vm.freqOpts.options[0].name);
-    console.log('line22',vm.freqOpts.options[0].range);
-    console.log('line22',vm.freqOpts.options[0].range.length);
-    }
+    vm.checkboxRequired = function (obj) {
+      for (var key in obj) {
+        if (obj[key]) {
+          vm.required = false;
+          break;
+        } else {
+          vm.required = true;
+        }
+      }
+    };
 
     vm.datePlus = function () {
       vm.xDays.startDate = new Date(vm.xDays.startDate.getTime() + day );
