@@ -72,10 +72,34 @@
     function getSingleUser (id) {
       uaService.getSingleUser(id)
       .then(function (result) {
-        vm.fname = result.data.user[0].fname
-        vm.lname = result.data.user[0].lname
-        vm.email = result.data.user[0].email
-      })
+        vm.fname = result.data.user[0].fname;
+        vm.lname = result.data.user[0].lname;
+        vm.email = result.data.user[0].email;
+        vm.shopFreq = result.data.user[0].schedule_type;
+        var schedule = result.data.user[0].schedule;
+
+        if (vm.shopFreq) {
+          vm.shopFreq = 'xDays';
+          vm.xDays.startDate = new Date(schedule[0]);
+
+          if (!(schedule[1] % 30)) {
+            vm.xDays.occur = schedule[1]/30;
+            vm.xDays.mult = 30;
+          } else if (!(schedule[1] % 7)) {
+            vm.xDays.occur = schedule[1]/7;
+            vm.xDays.mult = 7;
+          } else {
+            vm.xDays.occur = schedule[1];
+            vm.xDays.mult = 1;
+          }
+
+          vm.required = false;
+        } else {
+          vm.shopFreq = 'DOW';
+          buildShopDays(schedule);
+          vm.checkboxRequired(vm.shopDays);
+        }
+      });
     }
 
     function updateSingleUser () {
@@ -156,6 +180,34 @@
           return arr;
         }, []);
       } else { return []; }
+    }
+
+    function buildShopDays (arr) {
+      arr.forEach(function(el) {
+        switch (el) {
+          case 1:
+            vm.shopDays.sun = true;
+            break;
+          case 2:
+            vm.shopDays.mon = true;
+            break;
+          case 3:
+            vm.shopDays.tue = true;
+            break;
+          case 4:
+            vm.shopDays.wed = true;
+            break;
+          case 5:
+            vm.shopDays.thu = true;
+            break;
+          case 6:
+            vm.shopDays.fri = true;
+            break;
+          case 7:
+            vm.shopDays.sat = true;
+            break;
+        }
+      });
     }
 
     var ipObj1 = {
