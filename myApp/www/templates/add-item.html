@@ -1,13 +1,20 @@
 <ion-view>
   <ion-nav-title>Add Item</ion-nav-title>
   <ion-content>
-      <div class="item item-input">
-        <input type="text" ng-model="vm.barcode">
-          <button class="button button-small" ng-click="vm.lookupBarcode()">
-            Submit
-          </button>
-      </div>
-<!--     <div ng-show="!vm.show">
+
+    <p class="padding" ng-show="!vm.isMobile">The mobile app use a barcode scanner to read barcodes. In order to mimic this functionality in a web browers, I have provided a short list of barcodes that you can select to lookup. Please also feel free to try your own barcodes.  Mobile: {{vm.isMobile}}</p>
+    <div ng-show="!vm.isMobile">
+      <label class="item item-input">
+        <select ng-model="vm.barcode" ng-options="barcode for barcode in vm.barcodes"></select>
+      </label>
+    </div>
+    <div class="item item-input" ng-show="!vm.isMobile">
+      <input type="text" id="bc-input" placeholder="Select or type a barcode." ng-model="vm.barcode">
+      <button class="item-button-right button button-small" id="bc-submit" ng-click="vm.lookupBarcode()">
+          Submit
+      </button>
+    </div>
+    <div ng-show="vm.isMobile && vm.showLoader">
       <div class="backdrop visible backdrop-loading active">
         <div class="loading-container visible active">
           <div class="loading">
@@ -18,10 +25,13 @@
       </div>
     </div> -->
     <div class="card" ng-show="vm.notFound">
-      <h4 class="padding">{{vm.notFound}}</h4>
-      <button class="button button-block button-positive" ng-click="vm.scanNew()">
-        Add another product
-      </button>
+      <h4 class="padding text-center">{{vm.notFound}}</h4>
+      <button class="button button-block button-positive" ng-click="vm.scanNew()" ng-show="vm.isMobile">
+        Please scan different barcode.
+      </button>      
+<!--       <button class="button button-block button-positive ng-show="!vm.isMobile">
+        Please try a different barcode.
+      </button> -->
     </div>
     <div class="list" ng-show="vm.show">
 <!--       <button class="button button-block button-positive" ng-click="vm.scanNew()">

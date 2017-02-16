@@ -4,10 +4,10 @@
   .module('starter')
   .controller('userAdminCtrl', userAdminCtrl)
 
-  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService', '$cordovaToast'];
+  userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService', '$cordovaToast', '$timeout'];
 
 
-  function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService, $cordovaToast) {
+  function userAdminCtrl ($scope, uaService, ionicDatePicker, xDaysService, $cordovaToast, $timeout) {
 
     var vm = this;
     var day = 60*60*24*1000
@@ -15,6 +15,9 @@
 
     // var parser = datetime('EEE, MMM d, yyyy');
     // parser.set
+    vm.addSaveUserMessage = 'Update';
+
+    vm.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     vm.freqOpts = xDaysService.freqOpts();
     
@@ -91,28 +94,44 @@
       }
       uaService.updateUser(vm.id, vm.fname, vm.lname, vm.email, vm.schedule_type, vm.schedule)
       .then(function(result){
-        console.log('line92',result);
-        $cordovaToast.show('Update Successful!','short','center')
-          .then(function(success){
-            console.log(success);
-          }, function(error) {
-            console.log(error)
-          });
+        // console.log('line92',result);
+        if (vm.isMobile) {        
+          $cordovaToast.show('Update Successful!','short','center')
+            .then(function(success){
+              // console.log(success);
+            }, function(error) {
+              console.log(error);
+            });
+        } else {
+          vm.addSaveUserMessage = 'Success!';
+          $timeout(function () {
+            resetAddUserMessage();
+          },2000);
+        }
       })
       .catch(function(error) {
-        $cordovaToast.show('Uh oh! Something went wrong!','long','center')
-          .then(function(success){
-            console.log(success);
-          }, function(error) {
-            console.log(error)
-          });
+        if (vm.isMobile) {
+          $cordovaToast.show('Uh oh! Something went wrong!','long','center')
+            .then(function(success){
+              // console.log(success);
+            }, function(error) {
+              console.log(error);
+            });
+        } else {
+          vm.addSaveUserMessage = 'Oh no, didn\'t save!';
+          $timeout(function () {
+            resetAddUserMessage();
+          },2000);
+        }
       });
       // vm.schedule = buildSchedule(vm.shopDays);
       // vm.schedule_type = 0;
       // uaService.updateUser(vm)
+    };
+
+    function resetAddUserMessage () {
+      vm.addSaveUserMessage = 'Update';
     }
-
-
 
     function buildDOWSchedule (daysObj) {
       // if(daysObj) {
