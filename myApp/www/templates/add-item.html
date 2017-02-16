@@ -55,48 +55,50 @@
 <!--        </ion-slide>
       </ion-slide-box> -->
 <!--       <div class="list"> -->
-        <div class="item item-divider">
-          1. Add generic name for this item:
-        </div>
-        <label class="item item-input">
-          <input type="text" placeholder="Example: milk, eggs, cheese, etc." ng-model="vm.semName">
-        </label>
-         <div class="item item-divider">
-          2. Add {{vm.semName || 'this item'}} to one of the following list
-        </div>
-        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.current">Current List: {{vm.current | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
-        </ion-radio>
-        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.next">Next List: {{vm.next | date: 'EEEE, MMM d'}}<!--  | date: 'EEE, MMM d, yyyy'}} -->
-        </ion-radio>
-        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.following">Following List: {{vm.following | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
-        </ion-radio>
-        <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.hold">Hold List: {{vm.hold | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
-        </ion-radio>
-         <div class="item item-divider item-text-wrap">
-          3. Choose how often you think you need to repurchase {{vm.semName || 'this item'}}
-        </div>
-        <div class="item item-input">
-          <div class="col-15">
-            <p>Every</p>
-          </div>
-          <div class="col-15">
-            <label class="item item-input item-borderless">
-               <input type="number" ng-model="vm.xDays.occur" style="width: 50px; font-size: 20px;">
-            </label>
-          </div>
-          <div ng-repeat="option in vm.freqOpts.options" style="width: 85px">
-          <div class="col">
-            <ion-radio name="mult" value="{{option.incrementVal}}" ng-model="vm.xDays.mult">{{option.name}}</ion-radio>
-          </div>
-          </div>
-        </div>
-        <button class="button button-block button-balanced" ng-click="vm.addItem()">
-          Add product to my list
-        </button>
-        <button class="button button-block button-positive" ng-click="vm.scanNew()">
-          Scan new
-        </button>
+        <form name="addItemForm" novalidate>
 
+          <div class="item item-divider">
+            1. Add generic name for this item:
+          </div>
+          <label class="item item-input">
+            <input type="text" placeholder="Example: milk, eggs, cheese, etc." ng-model="vm.semName" required>
+          </label>
+           <div class="item item-divider">
+            2. Add {{vm.semName || 'this item'}} to one of the following list
+          </div>
+          <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.current" required>Current List: {{vm.current | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
+          </ion-radio>
+          <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.next" required>Next List: {{vm.next | date: 'EEEE, MMM d'}}<!--  | date: 'EEE, MMM d, yyyy'}} -->
+          </ion-radio>
+          <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.following" required>Following List: {{vm.following | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
+          </ion-radio>
+          <ion-radio ng-model="vm.xDays.startDate" ng-value="vm.hold" required>Hold List: {{vm.hold | date: 'EEEE, MMM d'}} <!-- | date: 'EEE, MMM d, yyyy'}} -->
+          </ion-radio>
+          <div class="item item-divider item-text-wrap">
+            3. Choose how often you think you need to repurchase {{vm.semName || 'this item'}}
+          </div>
+          <div class="item item-input">
+            <div class="col-15">
+              <p>Every</p>
+            </div>
+            <div class="col-15">
+              <label class="item item-input item-borderless">
+                 <input type="number" id="occur" ng-model="vm.xDays.occur" min="1">
+              </label>
+            </div>
+            <div ng-repeat="option in vm.freqOpts.options" style="width: 85px">
+              <div class="col">
+                <ion-radio name="mult" class="radio" value="{{option.incrementVal}}" ng-model="vm.xDays.mult" ng-init="$index==0">{{option.name}}</ion-radio>
+              </div>
+            </div>
+          </div>
+          <button class="button button-block button-balanced" ng-click="vm.addItem()" ng-disabled="addItemForm.$invalid">
+            {{vm.addItemMessage}}
+          </button>
+          <button class="button button-block button-positive" ng-click="vm.scanNew()">
+            Scan new
+          </button>
+        </form>
     </div>
   </ion-content>
 </ion-view>
