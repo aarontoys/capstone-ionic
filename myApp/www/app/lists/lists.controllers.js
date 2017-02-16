@@ -81,8 +81,8 @@
       var dateDiff;
       var newStartTime;
       var newInterval;
-      if (dir === 'right') {
-        console.log('swipe right worked');
+      var newSched
+      if (!+listId) {
         var newArr = item.occurrences.slice().reverse();
         for (var i = 0; i < newArr.length; i++) {
           if(new Date(newArr[i]) < new Date(vm.lists[parseInt(listId)+1].occurs)) {
@@ -92,16 +92,16 @@
         }
         newStartTime = new Date(new Date(item.occurrences[0]).getTime() + dateDiff);
         newInterval = item.schedule[1];
-        console.log(item);
-        console.log(newStartTime);
-        console.log(newInterval);
-        var newSched = [newStartTime,newInterval];
+        newSched = [newStartTime,newInterval];
         listsDataService
           .updateSchedule(item.id, newSched)
           .then(vm.doRefresh);
       }
       else {
-        console.log('swipe left worked');
+        newSched = [vm.lists[0].occurs, item.schedule[1]];
+        listsDataService
+          .updateSchedule(item.id, newSched)
+          .then(vm.doRefresh);
         // for (var i =0; i < item.occurrences.length; i++) {
         //   if(new Date(item.occurrences[i]) >= new Date(vm.lists[listId].occurs)) {
         //     dateDiff = new Date(item.occurrences[i]) - new Date(vm.lists[listId].occurs)
