@@ -5,14 +5,47 @@
       pulling-text="Pull to refresh..."
       on-refresh="vm.doRefresh()">
     </ion-refresher>
-    <p>{{vm.lists[vm.test].name}}</p>
-      {{vm.console}} 
-    <ion-list>
+    <ion-list can-swipe="true" show-delete="false">
 <!--     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
     </ion-toggle> -->
-        <ion-checkbox ng-repeat="item in vm.lists[vm.test].items"  ng-click="vm.checkOff(item, vm.test)" on-swipe-right="vm.swipe(item, vm.test, 'right')" ng-show="item.status">{{item.semantic_name}} x{{item.count}}</ion-checkbox> <!-- ng-if="vm.test == '0'" -->
-       <!-- <ion-item ng-repeat="item in vm.lists[vm.test].items" ng-if="vm.test !== '0'">{{item.semantic_name}} x{{item.count}}</ion-item> -->
+
+    <!-- This is the previously working code -->
+<!--         <ion-checkbox ng-repeat="item in vm.lists[vm.listId].items"  ng-click="vm.checkOff(item, vm.listId)" on-swipe-right="vm.swipe(item, vm.listId, 'right')" ng-show="item.status">{{item.semantic_name}} x{{item.count}}</ion-checkbox>  -->
+
+    <!-- End of previously working code -->
+
+    <!-- Begin new test code -->
+      <ion-item ng-repeat="item in vm.lists[vm.listId].items | orderBy: '-count'" ng-show="item.status" class="item-icon-right">
+
+<!--         <i class="ion-ios-circle-outline positive"></i>
+        <div>
+        {{item.semantic_name}} x{{item.count}}
+        </div> -->
+        <label class="checkbox">
+          <input type="checkbox" ng-click="vm.checkOff(item, vm.listId); $event.stopPropagation();" ng-model="item.checked" style="display:block;float:left;">
+            <span style="display:block;float:left;line-height:28px;margin-left:10px;">{{item.semantic_name}} x{{item.count}}</span>
+</label>
+            <i class="chevron" ng-class="+vm.listId ? 'icon ion-chevron-left' : 'icon ion-chevron-right'" ng-click="vm.swipe(item, vm.listId, 'right')"></i>
+            <span class="sub-text" ng-if="!+vm.listId">Postpone</span>
+            <span class="sub-text" ng-if="+vm.listId">Promote</span>
+          <!-- <div> -->
+<!--         <ion-option-button class="button-calm" ng-click="" ng-if="+vm.listId">
+          <i class="ion-chevron-left light"></i>
+        </ion-option-button>
+
+        <ion-option-button class="button-balanced" ng-click="vm.swipe(item, vm.listId, 'right')" ng-if="!+vm.listId">
+          <i class="ion-chevron-right light"></i>
+        </ion-option-button> -->
+
+      </ion-item>
+<!--         <label class="checkbox">
+          <input type="checkbox" name="">
+        </label> -->
+    <!-- End new test code -->
+
+      <!-- ng-if="vm.listId == '0'" -->
+       <!-- <ion-item ng-repeat="item in vm.lists[vm.listId].items" ng-if="vm.listId !== '0'">{{item.semantic_name}} x{{item.count}}</ion-item> -->
 
 <!--       <ion-list>
         <ion-item>
