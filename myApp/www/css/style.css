@@ -1,4 +1,9 @@
 /* Empty. Add your own CSS if you like */
+
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+
 .item-border-bottom {
   border-top-width: 0px; 
   border-left-width: 0px;
@@ -19,5 +24,46 @@
 
 /*.ion-checkmark:before {
   content: ""; 
-  /*background-color: #387ef5;*/
-  }*/
+  /*background-color: #387ef5;
+} */
+
+#bc-submit {
+  margin-right: 10px;
+}
+
+#bc-input {
+  padding-left: 8px;
+}
+
+.radio .radio-content .item-content {
+  text-align: center;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#occur {
+  width: 50px;
+  font-size: 20px;
+  padding-right: 0px;
+}
+
+.list .item-complex .item-content {
+  padding-bottom: 8px;
+}
+
+.item-icon-right .icon {
+  padding-left: 30%;
+  /*top: -7px;*/
+}
+
+span.sub-text {
+  right: 8px;
+  display: flex;
+  position: absolute;
+  top: 40px;
+  font-size: 12px;
+}
+
+.chevron.icon::before {
+  padding-bottom: 12px;
+}
