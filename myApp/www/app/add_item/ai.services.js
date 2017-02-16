@@ -9,13 +9,11 @@
   function addItemDataService ($http) {
     return {
       lookupBarcode: function (barcode) {
-        console.log(barcode);
         return $http.get('https://atoys-psl.herokuapp.com/addItem/'+barcode, {
         // return $http.get('http://localhost:5000/addItem/'+barcode, {
           barcode: barcode
         })
         .then(function(res) {
-          console.log(res);
           return res;
         })
         .catch(function(err) {

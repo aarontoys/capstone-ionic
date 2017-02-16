@@ -46,7 +46,6 @@
 
     vm.doRefresh = function () {
       getLists(vm.userId);
-      console.log(vm.lists);
     };
 
     function consolidate (listArr) {
@@ -67,20 +66,15 @@
 
     vm.checkOff = function (sched, listId) {
       sched.status = 0;
-      console.log(sched);
-      console.log(vm.lists[1].occurs);
       if (parseInt(listId) < 3) {
         
         sched.schedule[0] = vm.lists[parseInt(listId)+1].occurs;
       } else { 
         sched.schedule[0] = new Date(new Date(vm.lists[parseInt(listId)].occurs).getTime() + 864000000);
       }
-      console.log(sched.schedule);
       listsDataService
         .updateSchedule(sched.id, sched.schedule)
         .then(vm.doRefresh);
-      // var lists = getLists(vm.userId);
-      // console.log(lists)
     };
 
     vm.swipe = function (item, listId, dir) { 

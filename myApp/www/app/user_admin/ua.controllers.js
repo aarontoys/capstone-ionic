@@ -2,7 +2,7 @@
 
   angular
   .module('starter')
-  .controller('userAdminCtrl', userAdminCtrl)
+  .controller('userAdminCtrl', userAdminCtrl);
 
   userAdminCtrl.$inject = ['$scope','uaService', 'ionicDatePicker', 'xDaysService', '$cordovaToast', '$timeout'];
 
@@ -26,7 +26,7 @@
 
     });
       vm.xDays = {};
-      vm.xDays.startDate = new Date()
+      vm.xDays.startDate = new Date();
       vm.xDays.occur = 3;
       // vm.test = vm.date
 
@@ -39,12 +39,12 @@
     vm.datePlus = function () {
       vm.xDays.startDate = new Date(vm.xDays.startDate.getTime() + day );
 
-    }
+    };
 
     vm.dateMinus = function () {
 
       vm.xDays.startDate = new Date(vm.xDays.startDate.getTime() - day);
-    }
+    };
 
 
     var dayKeys = { 
@@ -55,7 +55,7 @@
           fri: 6,
           sat: 7,
           sun: 1
-        }
+        };
 
 //comment
 
@@ -83,7 +83,6 @@
     }
 
     vm.submit = function () {
-      console.log(vm);
       vm.id = 1;
       if (vm.shopFreq === 'xDays') {
         vm.schedule = xDaysService.buildxDaysSchedule(vm.xDays);
@@ -146,7 +145,7 @@
       if(daysObj) {
         return Object.keys(daysObj).reduce(function(arr, cur) {
           if( daysObj[cur] ){
-            arr.push(dayKeys[cur])
+            arr.push(dayKeys[cur]);
           }
           return arr;
         }, []);
@@ -155,10 +154,10 @@
 
     var ipObj1 = {
       callback: function (val) {  //Mandatory 
-        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+        // console.log('Return value from the datepicker popup is : ' + val, new Date(val));
         vm.xDays.startDate = new Date(val);
       }
-    }
+    };
     vm.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
