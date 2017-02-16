@@ -4,9 +4,10 @@
   .module('starter')
   .controller('listsCtrl', listsCtrl);
 
-  listsCtrl.$inject = ['$scope', '$state','listsDataService'];
+  listsCtrl.$inject = ['$scope', '$state','listsDataService', '$ionicScrollDelegate'];
 
-  function listsCtrl ($scope, $state, listsDataService) {
+  function listsCtrl ($scope, $state, listsDataService, $ionicScrollDelegate) {
+    
     var vm = this;
     
     $scope.$on('$ionicView.enter', function(e) {

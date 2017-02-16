@@ -4,9 +4,10 @@
   .module('starter')
   .controller('addItemCtrl', addItemCtrl);
 
-  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService', '$cordovaToast'];
+  addItemCtrl.$inject = ['$scope', '$timeout','addItemDataService', 'uaService', '$cordovaBarcodeScanner', 'xDaysService', '$cordovaToast', '$ionicScrollDelegate'];
 
-  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService, $cordovaToast) {
+  function addItemCtrl ($scope, $timeout, addItemDataService, uaService, $cordovaBarcodeScanner, xDaysService, $cordovaToast, $ionicScrollDelegate) {
+
     var vm = this;
     vm.xDays = {};
     vm.xDays.occur = 3;
