@@ -34,7 +34,7 @@
     vm.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     $scope.$on('$ionicView.enter', function(e) {
-      vm.show = false;
+      vm.showLoader = true;
       $timeout(function () {
         loadBarcodeScanner();
       }, 1000);
@@ -83,9 +83,11 @@
         if(newItem.data.product.length) {
           vm.notFound = false;
           vm.product = newItem.data.product[0];
-          vm.show = true;
+          vm.showLoader = false;
         } else {
-          vm.notFound = 'Sorry, we could not find that item. Please try a different item.';
+          vm.showLoader = false;
+          vm.product = '';
+          vm.notFound = 'Sorry, we could not find that item. Please try a different barcode.';
         }
       });
     }
